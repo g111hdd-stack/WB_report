@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+config.py
+log/
+web_driver/log/
+reports/
+profile/
+playwright/.cache/

@@ -1,0 +1,31 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="requests" />
+          <option value="SQLAlchemy" />
+          <option value="aiohttp" />
+          <option value="pydantic" />
+          <option value="pyodbc" />
+          <option value="nest-asyncio" />
+          <option value="pandas" />
+          <option value="openpyxl" />
+          <option value="numpy" />
+          <option value="gspread" />
+          <option value="oauth2client" />
+          <option value="psycopg2" />
+          <option value="gspread-formatting" />
+          <option value="google-api-python-client" />
+          <option value="google-auth" />
+          <option value="google-auth-oauthlib" />
+          <option value="asyncpg" />
+          <option value="greenlet" />
+          <option value="sqlalchemy" />
+          <option value="selenium" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
