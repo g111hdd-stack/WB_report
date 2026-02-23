@@ -26,7 +26,7 @@ def retry_on_exception(retries=3, delay=10):
                     return result
                 except (OperationalError, PyodbcError) as e:
                     attempt += 1
-                    logger.debug(f"Error occurred: {e}. Retrying {attempt}/{retries} after {delay} seconds...")
+                    logger.info(f"Error occurred: {e}. Retrying {attempt}/{retries} after {delay} seconds...")
                     time.sleep(delay)
                     if hasattr(self, 'session'):
                         self.session.rollback()

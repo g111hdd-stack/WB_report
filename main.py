@@ -2,10 +2,19 @@ from log_api.log import logger
 from web_driver.wd import  BrowserController
 from database.db import DbConnection
 from config import DB_ADMIN_URL, DB_ARRIS_URL
+from sqlalchemy import text
 
 def main():
     db_conn_admin = DbConnection(url=DB_ADMIN_URL)
     db_conn_arris = DbConnection(url=DB_ARRIS_URL)
+    try:
+        print("Проверка подключения ADMIN:",
+              db_conn_admin.session.execute(text("SELECT 1")).scalar())
+        print("Проверка подключения ARRIS:",
+              db_conn_arris.session.execute(text("SELECT 1")).scalar())
+    except Exception as e:
+        print("Ошибка подключения к БД:", e)
+        return
     try:
         markets = db_conn_admin.get_markets()
 

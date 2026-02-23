@@ -7,3 +7,4 @@ web_driver/log/
 reports/
 profile/
 playwright/.cache/
+.idea/

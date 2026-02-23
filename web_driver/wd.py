@@ -92,15 +92,6 @@ def _parse_proxy(proxy: str) -> Tuple[str, Optional[str], Optional[str]]:
 
 
 def modal_exceptions(func):
-    """
-    В Selenium ловили ElementClickInterceptedException.
-    В Playwright похожие ситуации проявляются как TimeoutError/Playwright Error при клике.
-
-    Поведение сохраняем:
-    - пробуем выполнить функцию
-    - если похоже на модалку/перехват, пытаемся нажать "отмена/закрыть"
-    - повторяем функцию
-    """
     @wraps(func)
     def wrapper(self, *args, **kwargs):
         try:
@@ -175,7 +166,7 @@ class BrowserController:
         # Persistent context = профиль на диск (аналог -profile в Firefox)
         self.context = self._pw.chromium.launch_persistent_context(
             user_data_dir=self.profile_path,
-            headless=False,
+            headless=True,
             proxy=proxy_cfg,
             locale="ru-RU",
             no_viewport=True,  # ближе к реальному браузеру
@@ -216,6 +207,7 @@ class BrowserController:
     def check_auth(self):
         try:
             self.page.wait_for_load_state("load", timeout=TIME_AWAITED * 4 * 1000)
+            self.page.wait_for_timeout(5000)
 
             last_url = None
             for _ in range(6):
@@ -438,8 +430,6 @@ class BrowserController:
         """Скачивание ежедневного отчёта (ZIP) через Playwright download API."""
         for retry in range(6):
             try:
-                # в selenium-коде была "первая попытка = TimeoutException" (прогрев).
-                # Сохраняем поведение: первая итерация принудительно считается неудачной.
                 if retry == 0:
                     raise PwTimeoutError("Первый прогон (искусственный таймаут)")
 
